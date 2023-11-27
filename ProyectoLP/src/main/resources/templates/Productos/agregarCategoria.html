@@ -1,0 +1,63 @@
+<!-- Modal de Agregar Categoria -->
+<div class="modal fade categoria" id="agregarCategoriaModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-dark">
+                <h5 class="modal-title">Agregar Categoria</h5> 
+                <button class="btn-close" data-bs-dismiss="modal"></button>               
+            </div>
+
+            <form id="agregarCategoriaForm" th:action="@{/registrarCategoria}" method="post"  class="was-validated">
+
+                <div class="modal-body">
+                    <div class="form-group mb-3">
+                        <label for="nombre">Categoria:</label>
+                        <input type="text" class="form-control" id="categoria" name="nombre" required/>
+                    </div>      
+                </div> 
+                <div class="modal-footer">
+                    <!-- Botón para mostrar la alerta -->
+                    <button type="button" class="btn btn-primary" onclick="guardarCategoria()">Guardar</button>
+                    <!-- Botón de enviar formulario (inicialmente oculto) -->
+                    <button type="submit" id="submitCategoria" style="display: none;"></button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+    
+<script>
+function guardarCategoria() {
+    var nombre = document.getElementById('categoria').value;
+
+
+    if (nombre.trim() === '') {
+        Swal.fire({
+            title: 'Error',
+            text: 'Por favor, completa todos los campos del formulario.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+    } else {
+        Swal.fire({
+            title: 'Categoria Agregado!',
+            text: 'Hiciste clic en el botón!',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            // Si el usuario hace clic en "OK", activa el evento de clic del botón de enviar formulario
+            if (result.isConfirmed) {
+                // Encuentra el botón de enviar formulario por su ID y haz clic en él
+                var submitButton = document.getElementById('submitCategoria');
+                submitButton.click();
+            }
+        });
+    }
+}
+
+</script>
+    
+    
+    
+    
+</div>

@@ -1,0 +1,59 @@
+<div class="agregarListaDeseoCarrito">
+	  <form onsubmit="insertarCarrito(this);" class="productoForm"
+                                      method="POST" >
+ 
+             <input type="hidden" name="productos" th:value="${d.productos.idProducto}" th:data-nombre="${d.productos.nombre}"/>      
+            <input type="hidden" name="clientes" th:value="${session.usuarioId}"/>                               
+            <input type="hidden" name="cantidad" value="1"/>
+            <input type="hidden" name="precioTotal" th:value="${d.productos.precio}"/>
+            <button th:onclick="'eliminarDeseo(' + ${d.idDeseo} + ')'" class="btn btn-dark"  >Añadir al carrito</button>
+        </form>  
+
+	
+	<script>
+function insertarCarrito(form) {
+	event.preventDefault()
+    // Realiza una solicitud AJAX INSETAR al servidor
+    var nombreProducto = form.querySelector('[name="productos"]').getAttribute('data-nombre');
+    $.ajax({
+        url: '/insertarCarritoDeseo/', 
+        method: 'POST',
+        data: $(form).serialize(),
+        success: function (response) {
+			
+	 	 if (response && response.length === 3) {
+				// Actualiza el contador del carrito en el frontend
+      		$('#contadorCarrito').text(response[0]); 
+            $('#totalCarrito').text('S/. ' + response[1].toFixed(2));
+            $('#listaDeseo').text(response[2]);        
+  
+                toastr.success(nombreProducto +' Agregado Al Carrito', 'Producto Agregado', {
+                positionClass: 'toast-top-right',
+                progressBar: true,
+                timeOut: 2000,
+                closeButton: true
+                
+            });
+          
+    
+            } else{
+			$('#totalCarrito').text('S/. ' + response[0].toFixed(2));
+              toastr.info(nombreProducto +' Cantidad Aumentada en el Carrito + 1', 'Producto Actualizado', {
+                positionClass: 'toast-top-right',
+                progressBar: true,
+                timeOut: 2000,
+                closeButton: true
+            });
+            }
+            
+    
+        },
+        error: function (error) {
+            // La solicitud falló
+            console.error('Error al agregar al carrito:', error);
+        }
+    });
+}
+
+</script>
+</div>

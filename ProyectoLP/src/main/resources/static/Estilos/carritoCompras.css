@@ -1,0 +1,166 @@
+body {
+    font-family: 'Quicksand', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #7300e0;
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.navbar-toggler-icon {
+    background-color: white;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #007bff;
+}
+
+.navbar-collapse {
+    justify-content: flex-end;
+}
+
+
+
+.cta-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #0056b3;
+}
+.botones-cantidad{
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+.input-cantidad{
+    width: 50px;
+    text-align: center;
+}
+.mb-3 input{
+    text-align: center;
+    font-weight: bold;
+}
+
+/*ANIMACION PAGO LETRA*/ 
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.processing-title {
+    animation: fadeInOut 2s infinite;
+}
+footer{
+	margin-top: 8rem;
+}
+ .medio-pago{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    background-color: #f2f2f2;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 20px;
+    color: #7300e0;
+}
+.compra-segura{
+    padding: 20px 10px 10px 0px;
+    text-align: center;
+    background-color: #7300e0;
+    color: white;
+    font-weight: bold;
+}
+.tabla-carrito{
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 15px;
+    text-align: center;
+}
+tr {
+    border-top: 1px solid #eee;
+}
+.logo-nombre{
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+.logo-nombre img{
+	border-radius: 50%;
+}
+.logo-nombre p{
+	    margin-top: 10px;
+}
+.tabla-thead{
+	background-color: #f4ebfd;
+	color: #7300e0;
+	text-align: center;
+}
+
+.calculos{
+	color: #7300e0;
+}
+.calculos input{
+	color: #6c6767;
+}
+.card-footer{
+	border: 0px;
+}
+.body-tabla{
+	text-align: center;
+	border: 1px solid #e0e0e0;
+	border-radius: 50px;
+}
+.card-header{
+	color: #7300e0;
+    background-color: #f4ebfd;
+    border-bottom: 0px;
+}
+.boton-pagar{
+ background-color: #7300e0;
+	color: #f4ebfd;
+
+}
+.boton-pagar:hover{
+	 background-color: #7300e0;
+}
+.descuento-form{
+	display: flex;
+	gap: 15px;
+}
+.boton-descuento{
+	background-color:#7300e0;
+	color: #f4ebfd;
+	padding: 10px;
+	width: 100px;
+	border-radius: 20px;
+	
+}
+.codigo-ingreso{
+	width: 190px;
+	border-radius: 10px;
+	border: 2px solid black;
+}

@@ -1,0 +1,41 @@
+.contenido-perfil{
+    margin-top: 15rem;
+    margin-bottom: 15rem;
+    font-family: 'Quicksand', sans-serif;
+}
+.centrar{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+.iconos-perfil{
+    display: flex;
+    gap: 20px;
+}
+.tamaño{
+    font-size: 20px;
+}
+#verContra{
+    display: none;
+}
+.activado {
+    color: purple; /* Cambia el color del texto a morado */
+}
+
+.activado:before {
+    content: "";
+    display: inline-block;
+    width: 5px; /* Ancho de la línea morada */
+    height: 100%; /* Altura de la línea morada, igual a la altura del texto */
+    background-color: purple; /* Color de la línea morada */
+    position: absolute;
+    left: 0px; /* Ajusta la posición de la línea morada a la izquierda del texto */
+    top: 0;
+}
+a{
+    text-decoration: none;
+}
+.card-custom {
+    height:  500px; 
+}
+

@@ -1,0 +1,130 @@
+<!-- Modal de Agregar Producto -->
+<div class="modal fade" id="agregarProductoModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-dark">
+                <h5 class="modal-title">Agregar Producto</h5> 
+                <button class="btn-close" data-bs-dismiss="modal"></button>               
+            </div>
+
+            <form id="agregarProductoForm" th:action="@{/agregarProducto}" method="post">
+
+                <div class="modal-body">
+                    <div class="form-group mb-3 was-validated">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required/>
+                    </div>
+                    <div class="form-group mb-3 was-validated">
+                        <label for="descripcion">Descripción</label>
+                        <input type="text" class="form-control" id="descripcion" name="descripcion" required/>
+                    </div>
+                    <div class="form-group mb-3 was-validated">
+                        <label for="precio">Precio</label>
+                        <input type="text" class="form-control"id="precio" name="precio" required/>
+                    </div>
+                     <div class="form-group mb-3 was-validated">
+                        <label for="cantidad">Cantidad</label>
+                        <input type="number" class="form-control"id="cantidad" name="cantidad" required/>
+                    </div>
+                   <div class="form-group mb-3 was-validated">
+                        <label for="categoria">Categoria</label>
+                        <select class="form-control mb-2" name="categoria" required>
+						<option value="">Seleccione una Categoría</option>
+		                <option th:each="c : ${categorias}" th:value="${c.idCategoria}" th:text="${c.nombre}"></option>
+		               </select>
+                    </div>
+                    
+                   <div class="form-group mb-3 was-validated">
+                        <label for="proveedor">Proveedor</label>
+                        <select class="form-control mb-2" name="proveedor" required>
+						<option value="">Seleccione un Proveedor</option>
+		                <option th:each="pro : ${proveedor}" th:value="${pro.idProveedor}" th:text="${pro.razonSocial}"></option>
+		               </select>
+                    </div>
+                 <div class="form-group mb-3">
+					    <label for="imagen">Imagen</label>
+					    <div class="form-check">
+					        <input class="form-check-input" type="radio" name="imagenOption" id="urlOption" value="url" checked>
+					        <label class="form-check-label" for="urlOption">URL</label>
+					    </div>
+					    <div class="form-check">
+					        <input class="form-check-input" type="radio" name="imagenOption" id="fileOption" value="file">
+					        <label class="form-check-label" for="fileOption">Subir Archivo</label>
+					    </div>
+					    <input  type="text" class="form-control" id="urlInput" name="imagen" placeholder="Ingrese la URL de la imagen" />
+					    <input type="file" class="form-control" id="fileInput" name="nada" style="display: none;"/>
+					</div>
+
+                </div> 
+                <div class="modal-footer">
+                    <!-- Botón para mostrar la alerta -->
+                    <button type="button" class="btn btn-primary" onclick="guardarProducto()">Guardar</button>
+                    <!-- Botón de enviar formulario (inicialmente oculto) -->
+                    <button type="submit" id="submitAgregar" style="display: none;"></button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+    
+<script>
+function guardarProducto() {
+    var nombre = document.getElementById('nombre').value;
+    var descripcion = document.getElementById('descripcion').value;
+    var precio = document.getElementById('precio').value;
+    var cantidad = document.getElementById('cantidad').value;
+	
+    if (nombre.trim() === '' || descripcion.trim() === '' || precio.trim() === '' || cantidad.trim() === '' ) {
+        Swal.fire({
+            title: 'Error',
+            text: 'Por favor, completa todos los campos del formulario.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+    } else {
+        Swal.fire({
+            title: 'Producto Agregado!',
+            text: 'Hiciste clic en el botón!',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            // Si el usuario hace clic en "OK", activa el evento de clic del botón de enviar formulario
+            if (result.isConfirmed) {
+                // Encuentra el botón de enviar formulario por su ID y haz clic en él
+                var submitButton = document.getElementById('submitAgregar');
+                submitButton.click();
+            }
+        });
+    }
+}
+
+</script>
+    
+<script>
+
+var nuevoNombre = 'nada';		
+var imagen = 'imagen';
+urlOption.addEventListener("change", function() {
+    if (urlOption.checked) {
+        urlInput.style.display = "block"; // Muestra el campo de URL
+        fileInput.style.display = "none"; // Oculta el campo de archivo
+
+        fileInput.setAttribute('name', nuevoNombre);
+        urlInput.setAttribute('name',imagen);
+    }
+});
+
+fileOption.addEventListener("change", function() {
+    if (fileOption.checked) {
+        fileInput.style.display = "block"; // Muestra el campo de archivo
+        urlInput.style.display = "none"; // Oculta el campo de URL
+
+        urlInput.setAttribute('name', nuevoNombre);
+        fileInput.setAttribute('name',imagen);
+    }
+});
+
+	</script>
+    
+    
+</div>

@@ -1,0 +1,144 @@
+<div class="modal fade" id="editarProductoModal">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header bg-success text-white">
+				<h5 class="modal-title">Editar Producto</h5>
+				<button class="btn-close" data-bs-dismiss="modal"></button>
+			</div>
+
+			<form th:action="@{/agregarProducto}"  method="POST" class="was-validated"
+				id="editarProductoForm">
+
+				<div class="modal-body">
+					<div class="form-group mb-3">
+						<label for="nombre">Nombre</label>
+						<input type="hidden" class="form-control" name="idProducto" id="editProductoId" required />
+						<input type="text" class="form-control" name="nombre" id="editNombre" required />
+					</div>
+					<div class="form-group mb-3">
+						<label for="descripcion">Descripción</label>
+						<input type="text" class="form-control" name="descripcion" id="editDescripcion" required />
+					</div>
+					<div class="form-group mb-3">
+						<label for="precio">Precio</label>
+						<input type="text" class="form-control" name="precio" id="editPrecio" required />
+					</div>
+					<div class="form-group mb-3">
+						<label for="cantidad">Cantidad</label>
+						<input type="number" class="form-control" name="cantidad" id="editCantidad" required />
+					</div>
+					<div class="form-group mb-3">
+                        <label for="categoria">Categoria</label>
+                     <select class="form-control mb-2" name="categoria" id="editCategoria">
+					    <option value="">Seleccione una Categoría</option>
+					    <option th:each="c : ${categorias}" th:value="${c.idCategoria}" th:text="${c.nombre}"></option>
+					</select>
+
+                    </div>
+                     <div class="form-group mb-3">
+                        <label for="proveedor">Proveedor</label>
+                        <select class="form-control mb-2" name="proveedor" id="editProveedor">
+						<option value="">Seleccione un Proveedor</option>
+		                <option th:each="pro : ${proveedor}" th:value="${pro.idProveedor}" th:text="${pro.razonSocial}"></option>
+		               </select>
+                    </div>
+                    
+			   <div class="form-group mb-3">
+					    <label for="imagen">Imagen</label>
+					    <div class="form-check">
+					        <input class="form-check-input" type="radio" name="imagenOpcion" id="urlOpcion" value="url" checked>
+					        <label class="form-check-label" for="urlOpcion">URL</label>
+					    </div>
+					    <div class="form-check">
+					        <input class="form-check-input" type="radio" name="imagenOpcion" id="fileOpcion" value="file">
+					        <label class="form-check-label" for="fileOpcion">Subir Archivo</label>
+					    </div>
+					    <input type="text" class="form-control" id="urlIn" name="imagen" placeholder="Ingrese la URL de la imagen" />
+					    <input type="text" class="form-control" id="fileIn" name="nada" style="display: none;"/>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+					<!-- Botón para mostrar la alerta -->
+					<button type="button" class="btn btn-primary" onclick="editar()">Guardar</button>
+					<!-- Botón de enviar formulario (inicialmente oculto) -->
+					<button type="submit" id="submitEditar" style="display: none;"></button>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+<script>
+function editar() {
+    var nombre = document.getElementById('editNombre').value;
+    var descripcion = document.getElementById('editDescripcion').value;
+    var precio = document.getElementById('editPrecio').value;
+    var cantidad = document.getElementById('editCantidad').value;
+  
+
+    if (nombre.trim() === '' || descripcion.trim() === '' || precio.trim() === '' || cantidad.trim() === '') {
+        Swal.fire({
+            title: 'Error',
+            text: 'Por favor, completa todos los campos del formulario.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+    } else {
+        Swal.fire({
+            title: 'Producto Actualizado!',
+            text: 'Hiciste clic en el botón!',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            // Si el usuario hace clic en "OK", activa el evento de clic del botón de enviar formulario
+            if (result.isConfirmed) {
+                // Encuentra el botón de enviar formulario por su ID y haz clic en él
+                var submitButton = document.getElementById('submitEditar');
+                submitButton.click();
+            }
+        });
+    }
+}
+
+</script>
+<script>
+
+var nuevoNombre = 'nada';		
+var imagen = 'imagen';
+urlOpcion.addEventListener("change", function() {
+    if (urlOpcion.checked) {
+        urlIn.style.display = "block"; // Muestra el campo de URL
+        fileIn.style.display = "none"; // Oculta el campo de archivo
+
+        fileIn.setAttribute('name', nuevoNombre);
+        urlIn.setAttribute('name',imagen);
+    }
+});
+
+fileOpcion.addEventListener("change", function() {
+    if (fileOpcion.checked) {
+        fileIn.style.display = "block"; // Muestra el campo de archivo
+        urlIn.style.display = "none"; // Oculta el campo de URL
+
+        urlIn.setAttribute('name', nuevoNombre);
+        fileIn.setAttribute('name',imagen);
+    }
+});
+
+	</script>	
+	
+<script>
+// Elemento del campo de texto
+var archivo = document.getElementById('fileIn');
+
+// Cuando se hace clic en el campo de texto, cambiar el tipo a file
+archivo.addEventListener('click', function() {
+    archivo.type = 'file';
+});
+</script>		
+	
+	
+</div>
+
+
+

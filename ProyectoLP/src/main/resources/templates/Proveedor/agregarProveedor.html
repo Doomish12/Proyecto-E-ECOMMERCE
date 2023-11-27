@@ -1,0 +1,73 @@
+<!-- Modal de Agregar Administrador -->
+<div class="modal fade" id="agregarProveedorModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-dark">
+                <h5 class="modal-title">Agregar Proveedor</h5> 
+                <button class="btn-close" data-bs-dismiss="modal"></button>               
+            </div>
+
+            <form id="agregarAdminForm" th:action="@{/agregarProveedor}" method="post"  class="was-validated">
+
+                <div class="modal-body">
+                    <div class="form-group mb-3">
+                        <label for="razonSocial">Razón Social</label>
+                        <input type="text" class="form-control" id="razonSocial" name="razonSocial" required/>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="ruc">RUC</label>
+                        <input type="text" class="form-control" id="ruc" name="ruc" required maxlength="11"/>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="telefono">Teléfono</label>
+                        <input type="text" class="form-control"id="telefono" name="telefono" required maxlength="9"/>
+                    </div>
+   		
+                </div> 
+                <div class="modal-footer">
+                    <!-- Botón para mostrar la alerta -->
+                    <button type="button" class="btn btn-primary" onclick="guardarProveedor()">Guardar</button>
+                    <!-- Botón de enviar formulario (inicialmente oculto) -->
+                    <button type="submit" id="submitAgregar" style="display: none;"></button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+    
+<script>
+function guardarProveedor() {
+    var razon = document.getElementById('razonSocial').value;
+    var ruc = document.getElementById('ruc').value;
+    var telefono = document.getElementById('telefono').value;
+  
+
+    if (razon.trim() === '' || ruc.trim() === '' || telefono.trim() === '' ) {
+        Swal.fire({
+            title: 'Error',
+            text: 'Por favor, completa todos los campos del formulario.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+    } else {
+        Swal.fire({
+            title: 'Proveedor Agregado!',
+            text: 'Hiciste clic en el botón!',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            // Si el usuario hace clic en "OK", activa el evento de clic del botón de enviar formulario
+            if (result.isConfirmed) {
+                // Encuentra el botón de enviar formulario por su ID y haz clic en él
+                var submitButton = document.getElementById('submitAgregar');
+                submitButton.click();
+            }
+        });
+    }
+}
+
+</script>
+    
+   
+    
+</div>

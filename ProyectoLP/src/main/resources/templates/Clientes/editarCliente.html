@@ -1,0 +1,92 @@
+<div class="modal fade" id="editarClienteModal">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header bg-success text-white">
+				<h5 class="modal-title">Editar Cliente</h5>
+				<button class="btn-close" data-bs-dismiss="modal"></button>
+			</div>
+
+			<form th:action="@{/agregarCliente}"  method="POST" class="was-validated"
+				id="editarClienteForm">
+
+				<div class="modal-body">
+					<div class="form-group mb-3">
+						<label for="nombres">Nombres</label>
+						<input type="hidden" class="form-control" name="idCliente" id="editClienteId" required />
+						<input type="text" class="form-control" name="nombres" id="editNombres" required />
+					</div>
+					<div class="form-group mb-3">
+						<label for="edad">Edad</label>
+						<input type="number" class="form-control" name="edad" id="editEdad" required />
+					</div>
+					<div class="form-group mb-3">
+						<label for="direccion">Dirección</label>
+						<input type="text" class="form-control" name="direccion" id="editDireccion" required />
+					</div>	
+					<div class="form-group mb-3">
+						<label for="correo">Correo</label>
+						<input type="email" class="form-control" name="correo" id="editCorreo" required />
+					</div>																			
+					<div class="form-group mb-3">
+						<label for="usuario">Usuario</label>
+						<input type="text" class="form-control" name="usuario" id="editUsuario" required />
+					</div>
+
+					<div class="form-group mb-3">
+						<label for="password">Contraseña</label>
+						<input type="text" class="form-control" name="password" id="editPassword" required />
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+					<!-- Botón para mostrar la alerta -->
+					<button type="button" class="btn btn-primary" onclick="editar()">Guardar</button>
+					<!-- Botón de enviar formulario (inicialmente oculto) -->
+					<button type="submit" id="submitEditar" style="display: none;"></button>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+<script>
+function editar() {
+    var nombres = document.getElementById('editNombres').value;
+    var edad = document.getElementById('editEdad').value;
+    var direccion = document.getElementById('editDireccion').value;	
+    var usuario = document.getElementById('editUsuario').value;
+    var correo = document.getElementById('editCorreo').value;
+    var password = document.getElementById('editPassword').value;
+  
+
+    if (usuario.trim() === '' || correo.trim() === '' || password.trim() === '' || nombres.trim() === '' || edad.trim() === '' || direccion.trim() === '' ) {
+        Swal.fire({
+            title: 'Error',
+            text: 'Por favor, completa todos los campos del formulario.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+    } else {
+        Swal.fire({
+            title: 'Cliente Actualizado!',
+            text: 'Hiciste clic en el botón!',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            // Si el usuario hace clic en "OK", activa el evento de clic del botón de enviar formulario
+            if (result.isConfirmed) {
+                // Encuentra el botón de enviar formulario por su ID y haz clic en él
+                var submitButton = document.getElementById('submitEditar');
+                submitButton.click();
+            }
+        });
+    }
+}
+
+</script>
+	
+	
+</div>
+
+
+

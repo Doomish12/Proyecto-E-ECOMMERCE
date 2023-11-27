@@ -1,0 +1,87 @@
+ <div class="agregarDeseo">
+	 
+  <form onsubmit="insertarDeseo(this);" class="productoFormDeseo" method="POST" >
+	  
+	  	 <input type="hidden" name="clientes" th:value="${session.usuarioId}"/>   
+         <input type="hidden" name="productos" th:value="${p.idProducto}" th:data-nombreDeseo="${p.nombre}"/>      
+        <!-- PERMITE QUE LOS USUARIOS QUE NO TIENEN CUENTA LOS REDIRIGA EL LOGIN -->
+   <div th:if="${session.usuarioId == null}">
+			   
+
+        <style>
+            .anadir-deseo{
+                display: none;
+            }
+        </style>
+        <button type="button"  onclick="enviarLogin2(event)"><i class="ri-heart-line"></i></button>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+          function enviarLogin2(event) {
+                event.preventDefault(); // Previene el comportamiento predeterminado del enlace
+
+                Swal.fire({
+                title: 'Para Añadir un Producto debes Logearte',
+                text: "Por favor inicia sesión",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, Logearme'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                   //Mandamos al usuario a logearse
+                    window.location.href = "/login";
+                }
+                });
+                }
+        </script>
+  </div>
+     		   
+     		   
+        <button type="submit" class="anadir-deseo" ><i class="ri-heart-line"></i></button>
+    </form>   
+ 
+ <script>
+function insertarDeseo(form) {
+	event.preventDefault()
+    // Realiza una solicitud AJAX INSETAR al servidor
+    var nombreProducto = form.querySelector('[name="productos"]').getAttribute('data-nombreDeseo');
+    $.ajax({
+        url: '/insertarListaDeseo/', 
+        method: 'POST',
+        data: $(form).serialize(),
+        success: function (response) {
+
+	 	 if (response === "ProductoExiste") {
+                toastr.info('El Producto ' + nombreProducto , 'Ya existe en tu lista', {
+                positionClass: 'toast-top-right',
+                progressBar: true,
+                timeOut: 2000,
+                closeButton: true
+                
+            });
+          
+    
+            } else{
+			  $('#listaDeseo').text(response); 
+              toastr.success(nombreProducto +' Se agrego a tu lista', 'Producto Agregado', {
+                positionClass: 'toast-top-right',
+                progressBar: true,
+                timeOut: 2000,
+                closeButton: true
+            });
+            }
+            
+         
+
+        },
+        error: function (error) {
+            // La solicitud falló
+            console.error('Error al agregar a la lista:', error);
+        }
+    });
+}
+
+</script>
+ 
+ </div>
